@@ -9,12 +9,12 @@ def create_dataset(dataset, config):
     features = h5py.File(config['fea_dir'], 'r')
     
     if dataset=='pretrain':
-        hf_dataset = load_from_disk(config['pretrain_cache_dir'])
-        # dataset = GigaSpeech(hf_dataset, config['fea_dir']) 
-        dataset = GigaSpeech(hf_dataset, features) 
-        # dataset = torch.utils.data.ConcatDataset([dataset] * 40000)
+        # hf_dataset = load_dataset(config['dataset_name'], config['configuration'], cache_dir=config['cache_dir'])
+        dataset_root_dir = config['pretrain_cache_dir']
+        dataset = GigaSpeech(dataset_root_dir, config['fea_dir'])   
+        #dataset = torch.utils.data.ConcatDataset([dataset] * 40000)
 
-        return dataset  
+        return dataset   
     
     elif dataset=='caption':   
         # train_dataset = GigaSpeech_train(load_from_disk(config['caption_train_cache_dir']), config['fea_dir']) 
